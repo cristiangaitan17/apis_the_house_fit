@@ -11,30 +11,30 @@ import (
 )
 
 type Productos struct {
-	Id                int       `orm:"column(id);pk"`
-	CategoriaId       int       `orm:"column(categoria_id)"`
-	Nombre            string    `orm:"column(nombre)"`
-	Marca             string    `orm:"column(marca);null"`
-	Sabor             string    `orm:"column(sabor);null"`
-	Precio            float64   `orm:"column(precio)"`
-	PrecioOriginal    float64   `orm:"column(precio_original);null"`
-	Impuesto          float64   `orm:"column(Impuesto)"`
-	PorcionG          int       `orm:"column(porcion_g);null"`
-	Porciones         int       `orm:"column(porciones);null"`
-	Descripcion       string    `orm:"column(descripcion);null"`
-	ImagenUrl         string    `orm:"column(imagen_url);null"`
-	Stock             int       `orm:"column(stock);null"`
-	EsNuevo           bool      `orm:"column(es_nuevo);null"`
-	DescuentoPct      int       `orm:"column(descuento_pct);null"`
-	CalificacionProm  float64   `orm:"column(calificacion_prom);null"`
-	TotalResenas      int       `orm:"column(total_resenas);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	Id                 int       `orm:"column(id);pk;auto"`
+	CategoriaId        int       `orm:"column(categoria_id)"`
+	Nombre             string    `orm:"column(nombre)"`
+	Marca              string    `orm:"column(marca)"`
+	Sabor              string    `orm:"column(sabor)"`
+	Precio             float64   `orm:"column(precio)"`
+	PrecioOriginal     float64   `orm:"column(precio_original)"`
+	Impuesto           float64   `orm:"column(Impuesto)"`
+	PorcionG           int       `orm:"column(porcion_g)"`
+	Porciones          int       `orm:"column(porciones)"`
+	Descripcion        string    `orm:"column(descripcion)"`
+	ImagenUrl          string    `orm:"column(imagen_url)"`
+	Stock              int       `orm:"column(stock)"`
+	EsNuevo            bool      `orm:"column(es_nuevo)"`
+	DescuentoPct       int       `orm:"column(descuento_pct)"`
+	CalificacionProm   float64   `orm:"column(calificacion_prom)"`
+	TotalResenas       int       `orm:"column(total_resenas)"`
+	Activo             bool      `orm:"column(activo)"`
+	FechaModificacion  time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion      time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *Productos) TableName() string {
-	return "productos"
+	return "tienda.productos"
 }
 
 func init() {

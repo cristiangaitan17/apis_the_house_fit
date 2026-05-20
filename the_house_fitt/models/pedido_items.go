@@ -11,19 +11,19 @@ import (
 )
 
 type PedidoItems struct {
-	Id                int       `orm:"column(indexes);pk"`
+	Id                int       `orm:"column(indexes);pk;auto"`
 	PedidoId          int       `orm:"column(pedido_id)"`
 	ProductoId        int       `orm:"column(producto_id)"`
-	Cantidad          int       `orm:"column(cantidad);null"`
-	PrecioUnitario    float64   `orm:"column(precio_unitario);null"`
-	Subtotal          float64   `orm:"column(subtotal);null"`
+	Cantidad          int       `orm:"column(cantidad)"`
+	PrecioUnitario    float64   `orm:"column(precio_unitario)"`
+	Subtotal          float64   `orm:"column(subtotal)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *PedidoItems) TableName() string {
-	return "pedido_items"
+	return "tienda.pedido_items"
 }
 
 func init() {

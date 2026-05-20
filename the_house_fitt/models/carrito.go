@@ -11,15 +11,15 @@ import (
 )
 
 type Carrito struct {
-	Id                int       `orm:"column(id);pk"`
+	Id                int       `orm:"column(id);pk;auto"`
 	UsuarioId         int       `orm:"column(usuario_id)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *Carrito) TableName() string {
-	return "carrito"
+	return "tienda.carrito"
 }
 
 func init() {

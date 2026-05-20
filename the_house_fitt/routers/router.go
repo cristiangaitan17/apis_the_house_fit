@@ -8,7 +8,7 @@
 package routers
 
 import (
-	":/Users/Aprendiz Tarde/Desktop/repos/apis_the_house_fit/the_house_fitt/controllers"
+	"the_house_fitt/controllers"
 
 	beego "github.com/beego/beego/v2/server/web"
 )

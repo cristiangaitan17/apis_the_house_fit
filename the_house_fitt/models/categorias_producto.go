@@ -11,17 +11,17 @@ import (
 )
 
 type CategoriasProducto struct {
-	Id                int       `orm:"column(id);pk"`
+	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
-	Icono             string    `orm:"column(icono);null"`
+	Icono             string    `orm:"column(icono)"`
 	Descripcion       string    `orm:"column(Descripcion)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *CategoriasProducto) TableName() string {
-	return "categorias_producto"
+	return "tienda.categorias_producto"
 }
 
 func init() {

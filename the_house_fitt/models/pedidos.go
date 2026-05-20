@@ -11,27 +11,28 @@ import (
 )
 
 type Pedidos struct {
-	Id                int       `orm:"column(id_pedido);pk"`
+	Id                int       `orm:"column(id_pedido);pk;auto"`
 	UsuarioId         int       `orm:"column(usuario_id)"`
-	Subtotal          float64   `orm:"column(subtotal);null"`
-	Envio             float64   `orm:"column(envio);null"`
-	Impuesto          float64   `orm:"column(impuesto);null"`
-	Total             float64   `orm:"column(total);null"`
-	MetodoPago        string    `orm:"column(metodo_pago);null"`
-	EstadoPago        string    `orm:"column(estado_pago);null"`
-	EstadoPedido      string    `orm:"column(estado_pedido);null"`
-	NombreReceptor    string    `orm:"column(nombre_receptor);null"`
-	ApellidoReceptor  string    `orm:"column(apellido_receptor);null"`
-	EmailReceptor     string    `orm:"column(email_receptor);null"`
-	Telefono          string    `orm:"column(telefono);null"`
-	DireccionEnvio    string    `orm:"column(direccion_envio);null"`
+	Subtotal          float64   `orm:"column(subtotal)"`
+	Envio             float64   `orm:"column(envio)"`
+	Impuesto          float64   `orm:"column(impuesto)"`
+	Total             float64   `orm:"column(total)"`
+	MetodoPago        string    `orm:"column(metodo_pago)"`
+	EstadoPago        string    `orm:"column(estado_pago)"`
+	EstadoPedido      string    `orm:"column(estado_pedido)"`
+	NombreReceptor    string    `orm:"column(nombre_receptor)"`
+	ApellidoReceptor  string    `orm:"column(apellido_receptor)"`
+	EmailReceptor     string    `orm:"column(email_receptor)"`
+	Telefono          string    `orm:"column(telefono)"`
+	DireccionEnvio    string    `orm:"column(direccion_envio)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
+
 func (t *Pedidos) TableName() string {
-	return "pedidos"
+	return "tienda.pedidos"
 }
 
 func init() {

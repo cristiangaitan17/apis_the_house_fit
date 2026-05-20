@@ -11,17 +11,17 @@ import (
 )
 
 type ResenasProducto struct {
-	Id                int       `orm:"column(id);pk"`
+	Id                int       `orm:"column(id);pk;auto"`
 	ProductoId        int       `orm:"column(producto_id)"`
 	UsuarioId         int       `orm:"column(usuario_id)"`
-	Calificacion      int       `orm:"column(calificacion);null"`
+	Calificacion      int       `orm:"column(calificacion)"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *ResenasProducto) TableName() string {
-	return "resenas_producto"
+	return "tienda.resenas_producto"
 }
 
 func init() {
