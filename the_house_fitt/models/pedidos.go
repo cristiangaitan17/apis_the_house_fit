@@ -32,7 +32,7 @@ type Pedidos struct {
 
 
 func (t *Pedidos) TableName() string {
-	return "tienda.pedidos"
+	return "pedidos"
 }
 
 func init() {

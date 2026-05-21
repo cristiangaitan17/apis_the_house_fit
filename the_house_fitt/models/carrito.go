@@ -19,7 +19,7 @@ type Carrito struct {
 }
 
 func (t *Carrito) TableName() string {
-	return "tienda.carrito"
+	return "carrito"
 }
 
 func init() {

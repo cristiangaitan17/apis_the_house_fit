@@ -23,7 +23,7 @@ type PedidoItems struct {
 }
 
 func (t *PedidoItems) TableName() string {
-	return "tienda.pedido_items"
+	return "pedido_items"
 }
 
 func init() {

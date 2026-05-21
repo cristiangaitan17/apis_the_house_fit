@@ -21,7 +21,7 @@ type ResenasProducto struct {
 }
 
 func (t *ResenasProducto) TableName() string {
-	return "tienda.resenas_producto"
+	return "resenas_producto"
 }
 
 func init() {

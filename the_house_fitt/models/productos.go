@@ -34,7 +34,7 @@ type Productos struct {
 }
 
 func (t *Productos) TableName() string {
-	return "tienda.productos"
+	return "productos"
 }
 
 func init() {

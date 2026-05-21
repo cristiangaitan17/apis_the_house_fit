@@ -176,7 +176,7 @@ func (c *CarritoItemsController) Put() {
 		return
 	}
 
-	v := models.CarritoItems{Id: id}
+	v := models.CarritoItems{IdCarrito: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
 		logs.Error(err)
 		c.Ctx.Output.SetStatus(400)

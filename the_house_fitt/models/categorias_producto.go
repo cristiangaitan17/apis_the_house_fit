@@ -21,7 +21,7 @@ type CategoriasProducto struct {
 }
 
 func (t *CategoriasProducto) TableName() string {
-	return "tienda.categorias_producto"
+	return "categorias_producto"
 }
 
 func init() {
