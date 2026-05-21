@@ -11,18 +11,19 @@ import (
 )
 
 type Ejercicios struct {
-	Id                int       `orm:"column(id);pk"`
-	GrupoMuscularId   int       `orm:"column(grupo_muscular_id)"`
-	Nombre            string    `orm:"column(nombre)"`
-	DescripcionCorta  string    `orm:"column(descripcion_corta);null"`
-	DescripcionLarga  string    `orm:"column(descripcion_larga);null"`
-	PosicionInicial   string    `orm:"column(posicion_inicial);null"`
-	Ejecucion         string    `orm:"column(ejecucion);null"`
-	Consejos          string    `orm:"column(consejos);null"`
-	Nivel             string    `orm:"column(nivel);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	Id                int               `orm:"column(id);pk;auto"`
+	GrupoMuscularId   int               `orm:"column(grupo_muscular_id)"`
+	GrupoMuscular     *GruposMusculares `orm:"rel(fk);column(grupo_muscular_id)"`
+	Nombre            string            `orm:"column(nombre)"`
+	DescripcionCorta  string            `orm:"column(descripcion_corta);null"`
+	DescripcionLarga  string            `orm:"column(descripcion_larga);null"`
+	PosicionInicial   string            `orm:"column(posicion_inicial);null"`
+	Ejecucion         string            `orm:"column(ejecucion);null"`
+	Consejos          string            `orm:"column(consejos);null"`
+	Nivel             string            `orm:"column(nivel);null"`
+	Activo            bool              `orm:"column(activo)"`
+	FechaModificacion time.Time         `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time         `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *Ejercicios) TableName() string {
@@ -47,6 +48,7 @@ func GetEjerciciosById(id int) (v *Ejercicios, err error) {
 	o := orm.NewOrm()
 	v = &Ejercicios{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "GrupoMuscular")
 		return v, nil
 	}
 	return nil, err
@@ -57,7 +59,7 @@ func GetEjerciciosById(id int) (v *Ejercicios, err error) {
 func GetAllEjercicios(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Ejercicios))
+	qs := o.QueryTable(new(Ejercicios)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

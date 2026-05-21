@@ -11,12 +11,13 @@ import (
 )
 
 type GruposMusculares struct {
-	Id                int       `orm:"column(id);pk"`
-	Nombre            string    `orm:"column(nombre)"`
-	Descripcion       string    `orm:"column(descripcion);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	Id                int           `orm:"column(id);pk;auto"`
+	Nombre            string        `orm:"column(nombre)"`
+	Descripcion       string        `orm:"column(descripcion);null"`
+	Activo            bool          `orm:"column(activo)"`
+	FechaModificacion time.Time     `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time     `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	Ejercicios        []*Ejercicios `orm:"reverse(many)"`
 }
 
 func (t *GruposMusculares) TableName() string {
@@ -41,6 +42,7 @@ func GetGruposMuscularesById(id int) (v *GruposMusculares, err error) {
 	o := orm.NewOrm()
 	v = &GruposMusculares{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "Ejercicios")
 		return v, nil
 	}
 	return nil, err
@@ -106,6 +108,7 @@ func GetAllGruposMusculares(query map[string]string, fields []string, sortby []s
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "Ejercicios")
 				ml = append(ml, v)
 			}
 		} else {
