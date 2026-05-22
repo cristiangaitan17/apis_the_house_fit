@@ -7,139 +7,139 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
-		beego.ControllerComments{
-			Method:           "Post",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
-		beego.ControllerComments{
-			Method:           "GetAll",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
-		beego.ControllerComments{
-			Method:           "GetOne",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
-		beego.ControllerComments{
-			Method:           "Put",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:AdministradorController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
-		beego.ControllerComments{
-			Method:           "Post",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
-		beego.ControllerComments{
-			Method:           "GetAll",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
-		beego.ControllerComments{
-			Method:           "GetOne",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
-		beego.ControllerComments{
-			Method:           "Put",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:LoginController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
-		beego.ControllerComments{
-			Method:           "Post",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
-		beego.ControllerComments{
-			Method:           "GetAll",
-			Router:           `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
-		beego.ControllerComments{
-			Method:           "GetOne",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
-		beego.ControllerComments{
-			Method:           "Put",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
-	beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
-		beego.ControllerComments{
-			Method:           "Delete",
-			Router:           `/:id`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
+    beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"] = append(beego.GlobalControllerRouter["the_house_fit/controllers:UsuariosController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
 
 }

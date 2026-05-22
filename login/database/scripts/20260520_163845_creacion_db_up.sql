@@ -57,7 +57,7 @@ CREATE TABLE "LOGIN"."Login" (
 ALTER TABLE "LOGIN"."Login"
 ADD CONSTRAINT fk_login_usuarios
 FOREIGN KEY (id_nombre) 
-REFERENCES "LOGIN".usuarios(id_usuario)
+REFERENCES "LOGIN"."usuarios"(id_usuario)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 

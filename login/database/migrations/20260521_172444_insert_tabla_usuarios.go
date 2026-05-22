@@ -19,12 +19,12 @@ func init() {
 
 // Run the migrations
 func (m *InsertTablaUsuarios_20260521_172444) Up() {
-	// use m.SQL("CREATE TABLE ...") to make schema update
+	m.SQL("INSERT INTO login.usuarios (nombres, apellidos, email, fecha_nacimiento, nacionalidad, ciudad, departamento, direccion, telefono) VALUES ('Juan', 'Pérez', 'juan@ejemplo.com', '1990-01-01', 'Colombiana', 'Bogotá', 'Bogotá', 'Calle 123', '1234567890')")
 
 }
 
 // Reverse the migrations
 func (m *InsertTablaUsuarios_20260521_172444) Down() {
-	// use m.SQL("DROP TABLE ...") to reverse schema update
+	m.SQL("DELETE FROM login.usuarios WHERE email = 'juan@ejemplo.com'")
 
 }

@@ -19,12 +19,11 @@ func init() {
 
 // Run the migrations
 func (m *InsertTablaAdministrador_20260521_172416) Up() {
-	// use m.SQL("CREATE TABLE ...") to make schema update
+	m.SQL("INSERT INTO rutinas.ejercicios (nombre_gym, nit, anio_fundacion, cantidad_clientes, departamento, ciudad, direccion, propietario_nombre, telefono, correo, pagina_web, firma, fecha_firma) VALUES ('Gimnasio XYZ', '123456789', 2020, 100, 'Bogotá', 'Bogotá', 'Calle 123', 'Juan Pérez', '1234567890', 'juan@ejemplo.com', 'https://www.gimnasioxyz.com', 'firma_juan.pdf', '2023-01-01')")
 
 }
-
 // Reverse the migrations
 func (m *InsertTablaAdministrador_20260521_172416) Down() {
-	// use m.SQL("DROP TABLE ...") to reverse schema update
+	m.SQL("DELETE FROM rutinas.ejercicios WHERE nit = '123456789'")
 
 }

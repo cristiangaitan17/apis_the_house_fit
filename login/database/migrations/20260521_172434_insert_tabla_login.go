@@ -19,12 +19,13 @@ func init() {
 
 // Run the migrations
 func (m *InsertTablaLogin_20260521_172434) Up() {
-	// use m.SQL("CREATE TABLE ...") to make schema update
+	m.SQL("INSERT INTO login.login (id, username, password, fecha_creacion) VALUES (1, 'admin', 'admin123', NOW())")
+	
 
 }
 
 // Reverse the migrations
 func (m *InsertTablaLogin_20260521_172434) Down() {
-	// use m.SQL("DROP TABLE ...") to reverse schema update
+	m.SQL("DELETE FROM login.login WHERE id = 1")
 
 }
