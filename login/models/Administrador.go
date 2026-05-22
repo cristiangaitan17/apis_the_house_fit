@@ -30,14 +30,16 @@ type Administrador struct {
 	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
-
-func (t *Administrador) TableName() string {
-	return "Administrador"
+func (a *Administrador) TableName() string {
+    return "Administrador"
 }
 
 func init() {
+	// Asegúrate de que el modelo quede registrado
 	orm.RegisterModel(new(Administrador))
 }
+
+
 
 // AddAdministrador insert a new Administrador into database and returns
 // last inserted Id on success.

@@ -20,13 +20,15 @@ type Login struct {
 	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
-func (t *Login) TableName() string {
-	return "Login"
+func (l *Login) TableName() string {
+    return "Login"
 }
 
 func init() {
+	// Asegúrate de que esté registrado el modelo
 	orm.RegisterModel(new(Login))
 }
+
 
 // AddLogin insert a new Login into database and returns
 // last inserted Id on success.
@@ -42,16 +44,17 @@ func AddLogin(m *Login) (id int64, err error) {
 // GetLoginById retrieves Login by Id. Returns error if
 // Id doesn't exist
 func GetLoginById(id int) (v *Login, err error) {
-	o := orm.NewOrm()
-	v = &Login{Id: id}
-	if err = o.Read(v); err == nil {
-		o.LoadRelated(v, "Usuario")
-		if v.Usuario != nil {
-			v.IdNombre = v.Usuario.Id
-		}
-		return v, nil
-	}
-	return nil, err
+    o := orm.NewOrm()
+    v = &Login{Id: id}
+    if err = o.Read(v); err == nil {
+        if _, err2 := o.LoadRelated(v, "Usuario"); err2 == nil {
+            if v.Usuario != nil {
+                v.IdNombre = v.Usuario.Id
+            }
+        }
+        return v, nil
+    }
+    return nil, err
 }
 
 // GetAllLogin retrieves all Login matches certain condition. Returns empty list if

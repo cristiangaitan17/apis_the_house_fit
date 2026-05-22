@@ -26,8 +26,9 @@ type Usuarios struct {
 	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
+
 func (t *Usuarios) TableName() string {
-	return "usuarios"
+    return "usuarios"  // El schema ya lo maneja search_path
 }
 
 func init() {
