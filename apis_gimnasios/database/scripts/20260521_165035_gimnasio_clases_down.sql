@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS gimnasios.gimnasio_clases CASCADE;
