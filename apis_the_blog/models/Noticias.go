@@ -12,7 +12,7 @@ import (
 
 type Noticias struct {
 	Id                int         `orm:"column(id);pk;auto"`
-	CategoriaId       int 		  `orm:"column(categoria_id)"`
+	CategoriaId       *Categorias `orm:"column(categoria_id);rel(fk)"`
 	Titulo            string      `orm:"column(titulo)"`
 	Contenido         string      `orm:"column(contenido);null"`
 	Encabezado        string      `orm:"column(encabezado);null"`
@@ -60,7 +60,7 @@ func GetNoticiasById(id int) (v *Noticias, err error) {
 func GetAllNoticias(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Noticias))
+	qs := o.QueryTable(new(Noticias)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

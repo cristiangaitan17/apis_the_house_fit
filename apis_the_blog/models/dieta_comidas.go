@@ -12,7 +12,7 @@ import (
 
 type DietaComidas struct {
 	Id                int        `orm:"column(id);pk;auto"`
-	DietaId 		  int 		 `orm:"column(dieta_id)"`
+	DietaId 		  *Nutricion 		 `orm:"column(dieta_id);rel(fk)"`
 	TiempoComida      string     `orm:"column(tiempo_comida);null"`
 	Descripcion       string     `orm:"column(descripcion);null"`
 	Orden             int        `orm:"column(orden);null"`
@@ -54,7 +54,7 @@ func GetDietaComidasById(id int) (v *DietaComidas, err error) {
 func GetAllDietaComidas(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DietaComidas))
+	qs := o.QueryTable(new(DietaComidas)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

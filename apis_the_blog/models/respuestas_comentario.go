@@ -12,7 +12,7 @@ import (
 
 type RespuestasComentario struct {
 	Id                int                   `orm:"column(id);pk;auto"`
-	ComentarioId 	  int 					`orm:"column(comentario_id)"`
+	ComentarioId 	  *ComentariosComunidad 					`orm:"column(comentario_id);rel(fk)"`
 	UsuarioId         int                   `orm:"column(usuario_id);null"`
 	Contenido         string                `orm:"column(contenido)"`
 	Activo            bool                  `orm:"column(activo);null"`
@@ -53,7 +53,7 @@ func GetRespuestasComentarioById(id int) (v *RespuestasComentario, err error) {
 func GetAllRespuestasComentario(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(RespuestasComentario))
+	qs := o.QueryTable(new(RespuestasComentario)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
