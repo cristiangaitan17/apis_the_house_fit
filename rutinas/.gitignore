@@ -1,3 +1,0 @@
-# Evitar subir credenciales y variables de entorno en cualquier carpeta
-**/.env
-.env
