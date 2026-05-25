@@ -11,19 +11,18 @@ import (
 )
 
 type Ejercicios struct {
-	Id                int               `orm:"column(id);pk;auto"`
-	GrupoMuscularId   int               `orm:"column(grupo_muscular_id)"`
-	GrupoMuscular     *GruposMusculares `orm:"rel(fk);column(grupo_muscular_id)"`
-	Nombre            string            `orm:"column(nombre)"`
-	DescripcionCorta  string            `orm:"column(descripcion_corta);null"`
-	DescripcionLarga  string            `orm:"column(descripcion_larga);null"`
-	PosicionInicial   string            `orm:"column(posicion_inicial);null"`
-	Ejecucion         string            `orm:"column(ejecucion);null"`
-	Consejos          string            `orm:"column(consejos);null"`
-	Nivel             string            `orm:"column(nivel);null"`
-	Activo            bool              `orm:"column(activo)"`
-	FechaModificacion time.Time         `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
-	FechaCreacion     time.Time         `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+    Id                int               `orm:"column(id);pk;auto"`
+    GrupoMuscular     *GruposMusculares `orm:"rel(fk);column(grupo_muscular_id)"`
+    Nombre            string            `orm:"column(nombre)"`
+    DescripcionCorta  string            `orm:"column(descripcion_corta);null"`
+    DescripcionLarga  string            `orm:"column(descripcion_larga);null"`
+    PosicionInicial   string            `orm:"column(posicion_inicial);null"`
+    Ejecucion         string            `orm:"column(ejecucion);null"`
+    Consejos          string            `orm:"column(consejos);null"`
+    Nivel             string            `orm:"column(nivel);null"`
+    Activo            bool              `orm:"column(activo)"`
+    FechaModificacion time.Time         `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+    FechaCreacion     time.Time         `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *Ejercicios) TableName() string {

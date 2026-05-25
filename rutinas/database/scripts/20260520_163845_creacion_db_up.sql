@@ -36,12 +36,11 @@ CREATE TABLE "rutinas"."rutinas" (
     "activo" bool NOT NULL DEFAULT true,
     "Fecha_modificacion" timestamp NOT NULL DEFAULT now(),
     "Fecha_creacion" timestamp NOT NULL DEFAULT now()
+);
 
-
-    -- Relación entre ejercicios y grupos musculares
-    ALTER TABLE rutinas.ejercicios
+-- Relación entre ejercicios y grupos musculares
+ALTER TABLE rutinas.ejercicios
     ADD CONSTRAINT fk_ejercicios_grupos_musculares
-    FOREIGN KEY (grupo_muscular_id) 
+    FOREIGN KEY (grupo_muscular_id)
     REFERENCES rutinas.grupos_musculares(id)
     ON DELETE CASCADE; -- Opcional: si borras un grupo, se borran sus ejercicios
-);

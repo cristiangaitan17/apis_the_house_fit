@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/beego/beego/v2/core/logs"
 	beego "github.com/beego/beego/v2/server/web"
 )
 
@@ -33,17 +34,14 @@ func (c *EjerciciosController) URLMapping() {
 // @router / [post]
 func (c *EjerciciosController) Post() {
 	var v models.Ejercicios
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddEjercicios(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": v}
 	}
 	c.ServeJSON()
+
 }
 
 // GetOne ...
@@ -58,9 +56,10 @@ func (c *EjerciciosController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetEjerciciosById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor GetOne: la solicitud contiene un parametro incorrecto o no contiene registro solicitado"}
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": v}
 	}
 	c.ServeJSON()
 }
@@ -121,9 +120,10 @@ func (c *EjerciciosController) GetAll() {
 
 	l, err := models.GetAllEjercicios(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor GetAll: la solicitud contiene un parametro incorrecto o no contiene registro solicitado"}
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": l}
 	}
 	c.ServeJSON()
 }
@@ -140,14 +140,16 @@ func (c *EjerciciosController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v := models.Ejercicios{Id: id}
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateEjerciciosById(&v); err == nil {
-			c.Data["json"] = "OK"
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Put: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		if err := models.UpdateEjerciciosById(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Put: no se pudo actualizar"}
+		} else {
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": id}
+		}
 	}
 	c.ServeJSON()
 }
@@ -155,17 +157,50 @@ func (c *EjerciciosController) Put() {
 // Delete ...
 // @Title Delete
 // @Description delete the Ejercicios
-// @Param	id		path 	string	true		"The id you want to delete"
+// @Param	id		path 	int	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 400 Id inválido o registro no encontrado
 // @router /:id [delete]
 func (c *EjerciciosController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteEjercicios(id); err == nil {
-		c.Data["json"] = "OK"
-	} else {
-		c.Data["json"] = err.Error()
+	if idStr == "" {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"status":  400,
+			"message": "No se recibió ningún ID para eliminar",
+		}
+		c.ServeJSON()
+		return
+	}
+
+	// 2. Convertir el parámetro a un número entero
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"status":  400,
+			"message": "El ID proporcionado no es un formato numérico válido",
+		}
+		c.ServeJSON()
+		return
+	}
+
+	// 3. Llamar al modelo para ejecutar el borrado físico o lógico en Postgres
+	if err := models.DeleteEjercicios(id); err != nil {
+		c.Data["json"] = map[string]interface{}{
+			"success": false,
+			"status":  400,
+			"message": "Error en el servidor Delete: la solicitud contiene un parametro incorrecto o el registro no existe",
+		}
+		c.ServeJSON()
+		return
+	}
+
+	// 4. Respuesta exitosa
+	c.Data["json"] = map[string]interface{}{
+		"success": true,
+		"status":  200,
+		"message": "El ejercicio ha sido eliminado correctamente de la base de datos",
 	}
 	c.ServeJSON()
 }
