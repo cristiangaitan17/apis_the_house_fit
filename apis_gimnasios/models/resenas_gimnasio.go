@@ -17,8 +17,8 @@ type ResenasGimnasio struct {
 	Calificacion      int             `orm:"column(calificacion)"`
 	Comentario        string          `orm:"column(comentario);null"`
 	Activo            bool            `orm:"column(activo);default(true)"`
-	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add;type(timestamp)"`
-	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now;type(timestamp)"`
+	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add"`
+	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now"`
 }
 
 func (t *ResenasGimnasio) TableName() string {
@@ -55,7 +55,7 @@ func GetResenasGimnasioById(id int) (v *ResenasGimnasio, err error) {
 func GetAllResenasGimnasio(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ResenasGimnasio))
+	qs := o.QueryTable(new(ResenasGimnasio)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

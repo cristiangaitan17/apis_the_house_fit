@@ -15,8 +15,8 @@ type GimnasioClases struct {
 	GimnasioId        *SedesGimnasios `orm:"column(gimnasio_id);rel(fk)"`
 	NombreClase       string          `orm:"column(nombre_clase)"`
 	Activo            bool            `orm:"column(activo);default(true)"`
-	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add;type(timestamp)"`
-	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now;type(timestamp)"`
+	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add;"`
+	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now;"`
 }
 func (t *GimnasioClases) TableName() string {
 	return "gimnasio_clases"
@@ -51,7 +51,7 @@ func GetGimnasioClasesById(id int) (v *GimnasioClases, err error) {
 func GetAllGimnasioClases(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(GimnasioClases))
+	qs := o.QueryTable(new(GimnasioClases)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
