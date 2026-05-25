@@ -38,10 +38,15 @@ func (c *EjerciciosController) Post() {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": v}
+		if _, err := models.AddEjercicios(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo crear el ejercicio"}
+		} else {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 201, "message": "Ejercicio creado", "data": v}
+		}
 	}
 	c.ServeJSON()
-
 }
 
 // GetOne ...
@@ -138,7 +143,12 @@ func (c *EjerciciosController) GetAll() {
 // @router /:id [put]
 func (c *EjerciciosController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "El ID proporcionado no es válido"}
+		c.ServeJSON()
+		return
+	}
 	v := models.Ejercicios{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
 		logs.Error(err)
@@ -148,7 +158,7 @@ func (c *EjerciciosController) Put() {
 			logs.Error(err)
 			c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Put: no se pudo actualizar"}
 		} else {
-			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "peticion correcta", "data": id}
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Ejercicio actualizado", "data": v}
 		}
 	}
 	c.ServeJSON()
