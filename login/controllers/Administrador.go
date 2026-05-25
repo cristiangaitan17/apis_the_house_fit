@@ -26,33 +26,25 @@ func (c *AdministradorController) URLMapping() {
 }
 
 // Post ...
-// @Title Post
-// @Description create Administrador
-// @Param	body		body 	models.Administrador	true		"body for Administrador content"
-// @Success 201 {int} models.Administrador
-// @Failure 403 body is empty
 // @router / [post]
 func (c *AdministradorController) Post() {
 	var v models.Administrador
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if _, err := models.AddAdministrador(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 201, "Message": "Administrador creado exitosamente", "data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error al crear el Administrador: " + err.Error(), "data": nil}
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error al leer el cuerpo de la solicitud: " + err.Error(), "data": nil}
 	}
 	c.ServeJSON()
 }
 
 // GetOne ...
-// @Title Get One
-// @Description get Administrador by id
-// @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.Administrador
-// @Failure 403 :id is empty
 // @router /:id [get]
 func (c *AdministradorController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -60,7 +52,7 @@ func (c *AdministradorController) GetOne() {
 	v, err := models.GetAdministradorById(id)
 	if err != nil {
 		logs.Error(err)
-		c.Data["json"] = map[string]interface{}{"success": true, "status": 400, "Message": "Error en el servicio GetOne: La solicitud contiene un parametro incorrecto o no existe ningun registro", "data": nil}
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error en el servicio GetOne: La solicitud contiene un parametro incorrecto o no existe ningun registro", "data": nil}
 	} else {
 		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "Message": "Peticion exitosa", "data": v}
 	}
@@ -68,16 +60,6 @@ func (c *AdministradorController) GetOne() {
 }
 
 // GetAll ...
-// @Title Get All
-// @Description get Administrador
-// @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
-// @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
-// @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
-// @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
-// @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Administrador
-// @Failure 403
 // @router / [get]
 func (c *AdministradorController) GetAll() {
 	var fields []string
@@ -87,32 +69,26 @@ func (c *AdministradorController) GetAll() {
 	var limit int64 = 10
 	var offset int64
 
-	// fields: col1,col2,entity.col3
 	if v := c.GetString("fields"); v != "" {
 		fields = strings.Split(v, ",")
 	}
-	// limit: 10 (default is 10)
 	if v, err := c.GetInt64("limit"); err == nil {
 		limit = v
 	}
-	// offset: 0 (default is 0)
 	if v, err := c.GetInt64("offset"); err == nil {
 		offset = v
 	}
-	// sortby: col1,col2
 	if v := c.GetString("sortby"); v != "" {
 		sortby = strings.Split(v, ",")
 	}
-	// order: desc,asc
 	if v := c.GetString("order"); v != "" {
 		order = strings.Split(v, ",")
 	}
-	// query: k:v,k:v
 	if v := c.GetString("query"); v != "" {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)
 			if len(kv) != 2 {
-				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error: par clave/valor de query invalido", "data": nil}
 				c.ServeJSON()
 				return
 			}
@@ -124,20 +100,14 @@ func (c *AdministradorController) GetAll() {
 	l, err := models.GetAllAdministrador(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
-		c.Data["json"] = map[string]interface{}{"success": true, "status": 400, "message": "Error en el servidor GetAll: la solicitud contiene un parametro incorrecto o no contiene registro solicitado"}
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error en el servidor GetAll: la solicitud contiene un parametro incorrecto o no contiene registro solicitado", "data": nil}
 	} else {
-		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Peticion correcta", "data": l}
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "Message": "Peticion exitosa", "data": l}
 	}
 	c.ServeJSON()
 }
 
 // Put ...
-// @Title Put
-// @Description update the Administrador
-// @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.Administrador	true		"body for Administrador content"
-// @Success 200 {object} models.Administrador
-// @Failure 403 :id is not int
 // @router /:id [put]
 func (c *AdministradorController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -145,33 +115,28 @@ func (c *AdministradorController) Put() {
 	v := models.Administrador{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateAdministradorById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "Message": "Administrador actualizado exitosamente", "data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error al actualizar el Administrador: " + err.Error(), "data": nil}
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error al leer el cuerpo de la solicitud: " + err.Error(), "data": nil}
 	}
 	c.ServeJSON()
 }
 
 // Delete ...
-// @Title Delete
-// @Description delete the Administrador
-// @Param	id		path 	string	true		"The id you want to delete"
-// @Success 200 {string} delete success!
-// @Failure 403 id is empty
 // @router /:id [delete]
 func (c *AdministradorController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteAdministrador(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "Message": "Administrador eliminado exitosamente", "data": nil}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "Message": "Error al eliminar el Administrador: " + err.Error(), "data": nil}
 	}
-	c.ServeJSON()
-}
-
 	c.ServeJSON()
 }
