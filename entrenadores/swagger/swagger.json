@@ -1,0 +1,717 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "beego Test API",
+        "description": "beego has a very cool tools to autogenerate documents for your API\n",
+        "version": "1.0.0",
+        "termsOfService": "http://beego.me/",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/entrenador_documentos/": {
+            "get": {
+                "tags": [
+                    "entrenador_documentos"
+                ],
+                "description": "get EntrenadorDocumentos\n\u003cbr\u003e",
+                "operationId": "EntrenadorDocumentosController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EntrenadorDocumentos"
+                        }
+                    },
+                    "400": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "entrenador_documentos"
+                ],
+                "description": "create EntrenadorDocumentos\n\u003cbr\u003e",
+                "operationId": "EntrenadorDocumentosController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for EntrenadorDocumentos content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EntrenadorDocumentos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.EntrenadorDocumentos"
+                    },
+                    "400": {
+                        "description": "body is empty or invalid"
+                    }
+                }
+            }
+        },
+        "/entrenador_documentos/{id}": {
+            "get": {
+                "tags": [
+                    "entrenador_documentos"
+                ],
+                "description": "get EntrenadorDocumentos by id\n\u003cbr\u003e",
+                "operationId": "EntrenadorDocumentosController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EntrenadorDocumentos"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is invalid or not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "entrenador_documentos"
+                ],
+                "description": "update the EntrenadorDocumentos\n\u003cbr\u003e",
+                "operationId": "EntrenadorDocumentosController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for EntrenadorDocumentos content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EntrenadorDocumentos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EntrenadorDocumentos"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is not int or body is invalid"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "entrenador_documentos"
+                ],
+                "description": "delete the EntrenadorDocumentos\n\u003cbr\u003e",
+                "operationId": "EntrenadorDocumentosController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "400": {
+                        "description": "id is invalid or delete failed"
+                    }
+                }
+            }
+        },
+        "/entrenadores/": {
+            "get": {
+                "tags": [
+                    "entrenadores"
+                ],
+                "description": "get Entrenadores\n\u003cbr\u003e",
+                "operationId": "EntrenadoresController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Entrenadores"
+                        }
+                    },
+                    "400": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "entrenadores"
+                ],
+                "description": "create Entrenadores\n\u003cbr\u003e",
+                "operationId": "EntrenadoresController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Entrenadores content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Entrenadores"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Entrenadores"
+                    },
+                    "400": {
+                        "description": "body is empty or invalid"
+                    }
+                }
+            }
+        },
+        "/entrenadores/{id}": {
+            "get": {
+                "tags": [
+                    "entrenadores"
+                ],
+                "description": "get Entrenadores by id\n\u003cbr\u003e",
+                "operationId": "EntrenadoresController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Entrenadores"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is invalid or not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "entrenadores"
+                ],
+                "description": "update the Entrenadores\n\u003cbr\u003e",
+                "operationId": "EntrenadoresController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Entrenadores content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Entrenadores"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Entrenadores"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is not int or body is invalid"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "entrenadores"
+                ],
+                "description": "delete the Entrenadores\n\u003cbr\u003e",
+                "operationId": "EntrenadoresController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "400": {
+                        "description": "id is invalid or delete failed"
+                    }
+                }
+            }
+        },
+        "/solicitudes_entrenador/": {
+            "get": {
+                "tags": [
+                    "solicitudes_entrenador"
+                ],
+                "description": "get SolicitudesEntrenador\n\u003cbr\u003e",
+                "operationId": "SolicitudesEntrenadorController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudesEntrenador"
+                        }
+                    },
+                    "400": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "solicitudes_entrenador"
+                ],
+                "description": "create SolicitudesEntrenador\n\u003cbr\u003e",
+                "operationId": "SolicitudesEntrenadorController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for SolicitudesEntrenador content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudesEntrenador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.SolicitudesEntrenador"
+                    },
+                    "400": {
+                        "description": "body is empty or invalid"
+                    }
+                }
+            }
+        },
+        "/solicitudes_entrenador/{id}": {
+            "get": {
+                "tags": [
+                    "solicitudes_entrenador"
+                ],
+                "description": "get SolicitudesEntrenador by id\n\u003cbr\u003e",
+                "operationId": "SolicitudesEntrenadorController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudesEntrenador"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is invalid or not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "solicitudes_entrenador"
+                ],
+                "description": "update the SolicitudesEntrenador\n\u003cbr\u003e",
+                "operationId": "SolicitudesEntrenadorController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for SolicitudesEntrenador content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudesEntrenador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudesEntrenador"
+                        }
+                    },
+                    "400": {
+                        "description": ":id is not int or body is invalid"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "solicitudes_entrenador"
+                ],
+                "description": "delete the SolicitudesEntrenador\n\u003cbr\u003e",
+                "operationId": "SolicitudesEntrenadorController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "400": {
+                        "description": "id is invalid or delete failed"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.EntrenadorDocumentos": {
+            "title": "EntrenadorDocumentos",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CreadoEn": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "EntrenadorId": {
+                    "$ref": "#/definitions/models.Entrenadores",
+                    "description": "👈 Cambiado a Relación FK"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Identificacion": {
+                    "type": "string"
+                },
+                "NombreArchivo": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Entrenadores": {
+            "title": "Entrenadores",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "AniosExperiencia": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "AprovacionEntrenador": {
+                    "type": "boolean"
+                },
+                "CalificacionProm": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Cedula": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "Especialidad": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FotoUrl": {
+                    "type": "string"
+                },
+                "GimnasioId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "HojaVida": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "IdAdminitrador": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "documentos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.EntrenadorDocumentos"
+                    }
+                }
+            }
+        },
+        "models.SolicitudesEntrenador": {
+            "title": "SolicitudesEntrenador",
+            "type": "object",
+            "properties": {
+                "activo": {
+                    "type": "boolean"
+                },
+                "cedula": {
+                    "type": "string"
+                },
+                "correo": {
+                    "type": "string"
+                },
+                "creado_en": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "direccion": {
+                    "type": "string"
+                },
+                "especialidad": {
+                    "type": "string"
+                },
+                "estado": {
+                    "type": "string"
+                },
+                "experiencia": {
+                    "type": "string"
+                },
+                "fecha_creacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "fecha_modificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "gimnasio_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "nombres_apellidos": {
+                    "type": "string"
+                },
+                "revisado_en": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "revisado_por": {
+                    "type": "boolean"
+                },
+                "sobre_mi": {
+                    "type": "string"
+                },
+                "usuario_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "whatsapp": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "entrenadores",
+            "description": "EntrenadoresController operations for Entrenadores\n"
+        },
+        {
+            "name": "entrenador_documentos",
+            "description": "EntrenadorDocumentosController operations for EntrenadorDocumentos\n"
+        },
+        {
+            "name": "solicitudes_entrenador",
+            "description": "SolicitudesEntrenadorController operations for SolicitudesEntrenador\n"
+        }
+    ]
+}

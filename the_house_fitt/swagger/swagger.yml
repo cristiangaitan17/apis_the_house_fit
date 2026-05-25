@@ -1,0 +1,1109 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: |
+    beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /carrito/:
+    get:
+      tags:
+      - carrito
+      description: |-
+        get Carrito
+        <br>
+      operationId: CarritoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Carrito'
+        "403":
+          description: ""
+    post:
+      tags:
+      - carrito
+      description: |-
+        create Carrito
+        <br>
+      operationId: CarritoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Carrito content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Carrito'
+      responses:
+        "201":
+          description: '{int} models.Carrito'
+        "403":
+          description: body is empty
+  /carrito/{id}:
+    get:
+      tags:
+      - carrito
+      description: |-
+        get Carrito by id
+        <br>
+      operationId: CarritoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Carrito'
+        "403":
+          description: :id is empty
+    delete:
+      tags:
+      - carrito
+      description: |-
+        delete the Carrito
+        <br>
+      operationId: CarritoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /carrito_items/:
+    get:
+      tags:
+      - carrito_items
+      description: |-
+        get CarritoItems
+        <br>
+      operationId: CarritoItemsController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CarritoItems'
+        "403":
+          description: ""
+    post:
+      tags:
+      - carrito_items
+      description: |-
+        create CarritoItems
+        <br>
+      operationId: CarritoItemsController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for CarritoItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CarritoItems'
+      responses:
+        "201":
+          description: '{int} models.CarritoItems'
+        "403":
+          description: body is empty
+  /carrito_items/{id}:
+    get:
+      tags:
+      - carrito_items
+      description: |-
+        get CarritoItems by id
+        <br>
+      operationId: CarritoItemsController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CarritoItems'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - carrito_items
+      description: |-
+        update the CarritoItems
+        <br>
+      operationId: CarritoItemsController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for CarritoItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CarritoItems'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CarritoItems'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - carrito_items
+      description: |-
+        delete the CarritoItems
+        <br>
+      operationId: CarritoItemsController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /categorias_producto/:
+    get:
+      tags:
+      - categorias_producto
+      description: |-
+        get CategoriasProducto
+        <br>
+      operationId: CategoriasProductoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CategoriasProducto'
+        "403":
+          description: ""
+    post:
+      tags:
+      - categorias_producto
+      description: |-
+        create CategoriasProducto
+        <br>
+      operationId: CategoriasProductoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for CategoriasProducto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoriasProducto'
+      responses:
+        "201":
+          description: '{int} models.CategoriasProducto'
+        "403":
+          description: body is empty
+  /categorias_producto/{id}:
+    get:
+      tags:
+      - categorias_producto
+      description: |-
+        get CategoriasProducto by id
+        <br>
+      operationId: CategoriasProductoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CategoriasProducto'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - categorias_producto
+      description: |-
+        update the CategoriasProducto
+        <br>
+      operationId: CategoriasProductoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for CategoriasProducto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoriasProducto'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CategoriasProducto'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - categorias_producto
+      description: |-
+        delete the CategoriasProducto
+        <br>
+      operationId: CategoriasProductoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /pedido_items/:
+    get:
+      tags:
+      - pedido_items
+      description: |-
+        get PedidoItems
+        <br>
+      operationId: PedidoItemsController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.PedidoItems'
+        "403":
+          description: ""
+    post:
+      tags:
+      - pedido_items
+      description: |-
+        create PedidoItems
+        <br>
+      operationId: PedidoItemsController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for PedidoItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.PedidoItems'
+      responses:
+        "201":
+          description: '{int} models.PedidoItems'
+        "403":
+          description: body is empty
+  /pedido_items/{id}:
+    get:
+      tags:
+      - pedido_items
+      description: |-
+        get PedidoItems by id
+        <br>
+      operationId: PedidoItemsController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.PedidoItems'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - pedido_items
+      description: |-
+        update the PedidoItems
+        <br>
+      operationId: PedidoItemsController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for PedidoItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.PedidoItems'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.PedidoItems'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - pedido_items
+      description: |-
+        delete the PedidoItems
+        <br>
+      operationId: PedidoItemsController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /pedidos/:
+    get:
+      tags:
+      - pedidos
+      description: |-
+        get Pedidos
+        <br>
+      operationId: PedidosController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Pedidos'
+        "403":
+          description: ""
+    post:
+      tags:
+      - pedidos
+      description: |-
+        create Pedidos
+        <br>
+      operationId: PedidosController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Pedidos content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Pedidos'
+      responses:
+        "201":
+          description: '{int} models.Pedidos'
+        "403":
+          description: body is empty
+  /pedidos/{id}:
+    get:
+      tags:
+      - pedidos
+      description: |-
+        get Pedidos by id
+        <br>
+      operationId: PedidosController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Pedidos'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - pedidos
+      description: |-
+        update the Pedidos
+        <br>
+      operationId: PedidosController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Pedidos content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Pedidos'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Pedidos'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - pedidos
+      description: |-
+        delete the Pedidos
+        <br>
+      operationId: PedidosController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /productos/:
+    get:
+      tags:
+      - productos
+      description: |-
+        get Productos
+        <br>
+      operationId: ProductosController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Productos'
+        "403":
+          description: ""
+    post:
+      tags:
+      - productos
+      description: |-
+        create Productos
+        <br>
+      operationId: ProductosController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Productos content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Productos'
+      responses:
+        "201":
+          description: '{int} models.Productos'
+        "403":
+          description: body is empty
+  /productos/{id}:
+    get:
+      tags:
+      - productos
+      description: |-
+        get Productos by id
+        <br>
+      operationId: ProductosController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Productos'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - productos
+      description: |-
+        update the Productos
+        <br>
+      operationId: ProductosController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Productos content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Productos'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Productos'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - productos
+      description: |-
+        delete the Productos
+        <br>
+      operationId: ProductosController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /resenas_producto/:
+    get:
+      tags:
+      - resenas_producto
+      description: |-
+        get ResenasProducto
+        <br>
+      operationId: ResenasProductoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ResenasProducto'
+        "403":
+          description: ""
+    post:
+      tags:
+      - resenas_producto
+      description: |-
+        create ResenasProducto
+        <br>
+      operationId: ResenasProductoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for ResenasProducto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResenasProducto'
+      responses:
+        "201":
+          description: '{int} models.ResenasProducto'
+        "403":
+          description: body is empty
+  /resenas_producto/{id}:
+    get:
+      tags:
+      - resenas_producto
+      description: |-
+        get ResenasProducto by id
+        <br>
+      operationId: ResenasProductoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ResenasProducto'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - resenas_producto
+      description: |-
+        update the ResenasProducto
+        <br>
+      operationId: ResenasProductoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for ResenasProducto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResenasProducto'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ResenasProducto'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - resenas_producto
+      description: |-
+        delete the ResenasProducto
+        <br>
+      operationId: ResenasProductoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+definitions:
+  models.Carrito:
+    title: Carrito
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      UsuarioId:
+        type: integer
+        format: int64
+  models.CarritoItems:
+    title: CarritoItems
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Cantidad:
+        type: integer
+        format: int64
+      CarritoId:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      IdCarrito:
+        type: integer
+        format: int64
+      PrecioUnitario:
+        type: number
+        format: double
+      ProductoId:
+        type: integer
+        format: int64
+  models.CategoriasProducto:
+    title: CategoriasProducto
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Icono:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+  models.PedidoItems:
+    title: PedidoItems
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Cantidad:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      PedidoId:
+        type: integer
+        format: int64
+      PrecioUnitario:
+        type: number
+        format: double
+      ProductoId:
+        type: integer
+        format: int64
+      Subtotal:
+        type: number
+        format: double
+  models.Pedidos:
+    title: Pedidos
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      ApellidoReceptor:
+        type: string
+      DireccionEnvio:
+        type: string
+      EmailReceptor:
+        type: string
+      Envio:
+        type: number
+        format: double
+      EstadoPago:
+        type: string
+      EstadoPedido:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Impuesto:
+        type: number
+        format: double
+      MetodoPago:
+        type: string
+      NombreReceptor:
+        type: string
+      Subtotal:
+        type: number
+        format: double
+      Telefono:
+        type: string
+      Total:
+        type: number
+        format: double
+      UsuarioId:
+        type: integer
+        format: int64
+  models.Productos:
+    title: Productos
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CalificacionProm:
+        type: number
+        format: double
+      CategoriaId:
+        type: integer
+        format: int64
+      Descripcion:
+        type: string
+      DescuentoPct:
+        type: integer
+        format: int64
+      EsNuevo:
+        type: boolean
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      ImagenUrl:
+        type: string
+      Impuesto:
+        type: number
+        format: double
+      Marca:
+        type: string
+      Nombre:
+        type: string
+      PorcionG:
+        type: integer
+        format: int64
+      Porciones:
+        type: integer
+        format: int64
+      Precio:
+        type: number
+        format: double
+      PrecioOriginal:
+        type: number
+        format: double
+      Sabor:
+        type: string
+      Stock:
+        type: integer
+        format: int64
+      TotalResenas:
+        type: integer
+        format: int64
+  models.ResenasProducto:
+    title: ResenasProducto
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Calificacion:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      ProductoId:
+        type: integer
+        format: int64
+      UsuarioId:
+        type: integer
+        format: int64
+tags:
+- name: pedidos
+  description: |
+    PedidosController operations for Pedidos
+- name: productos
+  description: |
+    ProductosController operations for Productos
+- name: resenas_producto
+  description: |
+    ResenasProductoController operations for ResenasProducto
+- name: carrito
+  description: |
+    CarritoController operations for Carrito
+- name: carrito_items
+  description: |
+    CarritoItemsController operations for CarritoItems
+- name: categorias_producto
+  description: |
+    CategoriasProductoController operations for CategoriasProducto
+- name: pedido_items
+  description: |
+    PedidoItemsController operations for PedidoItems
