@@ -34,7 +34,7 @@ type Productos struct {
 }
 
 func (t *Productos) TableName() string {
-	return "productos"
+	return "tienda.productos"
 }
 
 func init() {
@@ -55,6 +55,7 @@ func GetProductosById(id int) (v *Productos, err error) {
 	o := orm.NewOrm()
 	v = &Productos{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "CategoriaId")
 		return v, nil
 	}
 	return nil, err
@@ -120,6 +121,7 @@ func GetAllProductos(query map[string]string, fields []string, sortby []string, 
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "CategoriaId")
 				ml = append(ml, v)
 			}
 		} else {
