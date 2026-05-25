@@ -11,14 +11,14 @@ import (
 )
 
 type RespuestasComentario struct {
-	Id                int       `orm:"column(id);pk"`
-	ComentarioId      int       `orm:"column(comentario_id)"`
+	Id                int       `orm:"column(id);pk;auto"`
+	ComentarioId      *ComentariosComunidad `orm:"column(comentario_id);rel(fk)"`
 	UsuarioId         int       `orm:"column(usuario_id)"`
 	Contenido         string    `orm:"column(contenido)"`
 	CreadoEn          time.Time `orm:"column(creado_en);type(timestamp without time zone);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	Ffechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 }
 
 func (t *RespuestasComentario) TableName() string {
@@ -37,12 +37,12 @@ func AddRespuestasComentario(m *RespuestasComentario) (id int64, err error) {
 	return
 }
 
-// GetRespuestasComentarioById retrieves RespuestasComentario by Id. Returns error if
-// Id doesn't exist
+// GetRespuestasComentarioById obtiene una respuesta con su comentario relacionado
 func GetRespuestasComentarioById(id int) (v *RespuestasComentario, err error) {
 	o := orm.NewOrm()
 	v = &RespuestasComentario{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "ComentarioId")
 		return v, nil
 	}
 	return nil, err
@@ -53,7 +53,7 @@ func GetRespuestasComentarioById(id int) (v *RespuestasComentario, err error) {
 func GetAllRespuestasComentario(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(RespuestasComentario))
+	qs := o.QueryTable(new(RespuestasComentario)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

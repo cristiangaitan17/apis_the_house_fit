@@ -11,8 +11,8 @@ import (
 )
 
 type Noticias struct {
-	Id                int       `orm:"column(id);pk"`
-	CategoriaId       int       `orm:"column(categoria_id)"`
+	Id                int       `orm:"column(id);pk;auto"`
+	CategoriaId       *Categorias `orm:"column(categoria_id);rel(fk)"`
 	Titulo            string    `orm:"column(titulo)"`
 	Contenido         string    `orm:"column(contenido)"`
 	Encabezado        string    `orm:"column(encabezado);null"`
@@ -24,8 +24,8 @@ type Noticias struct {
 	CreadoEn          time.Time `orm:"column(creado_en);type(timestamp without time zone);null"`
 	ActualizadoEn     time.Time `orm:"column(actualizado_en);type(timestamp without time zone);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	fechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 }
 
 func (n *Noticias) TableName() string {
@@ -44,12 +44,13 @@ func AddNoticias(m *Noticias) (id int64, err error) {
 	return
 }
 
-// GetNoticiasById retrieves Noticias by Id. Returns error if
-// Id doesn't exist
+// GetNoticiasById obtiene una noticia con su categoría relacionada
 func GetNoticiasById(id int) (v *Noticias, err error) {
 	o := orm.NewOrm()
 	v = &Noticias{Id: id}
 	if err = o.Read(v); err == nil {
+		// Cargar la categoría relacionada
+		o.LoadRelated(v, "CategoriaId")
 		return v, nil
 	}
 	return nil, err
@@ -60,7 +61,7 @@ func GetNoticiasById(id int) (v *Noticias, err error) {
 func GetAllNoticias(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Noticias))
+	qs := o.QueryTable(new(Noticias)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

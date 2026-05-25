@@ -11,7 +11,7 @@ import (
 )
 
 type Nutricion struct {
-	Id                int       `orm:"column(id);pk"`
+	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion);null"`
 	Objetivo          string    `orm:"column(objetivo);null"`
@@ -20,8 +20,8 @@ type Nutricion struct {
 	Publicado         bool      `orm:"column(publicado);null"`
 	CreadoEn          time.Time `orm:"column(creado_en);type(timestamp without time zone);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	fechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 }
 
 func (t *Nutricion) TableName() string {

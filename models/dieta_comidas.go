@@ -12,13 +12,13 @@ import (
 
 type DietaComidas struct {
     Id                int       `orm:"column(id);pk;auto"`
-    DietaId           int       `orm:"column(dieta_id)"`
+    DietaId           *Nutricion `orm:"column(dieta_id);rel(fk)"` 
     TiempoComida      string    `orm:"column(tiempo_comida);null"`
     Descripcion       string    `orm:"column(descripcion);null"`
     Orden             int       `orm:"column(orden);null"`
     Activo            bool      `orm:"column(activo);default(true)"`
-    FechaModificacion time.Time `orm:"column(Fecha_modificacion);auto_now;type(timestamp)"`
-    FechaCreacion     time.Time `orm:"column(Fecha_creacion);auto_now_add;type(timestamp)"`
+    fechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 }
 
 func (t *DietaComidas) TableName() string {
@@ -36,21 +36,22 @@ func AddDietaComidas(m *DietaComidas) (id int64, err error) {
     return
 }
 
-// GetDietaComidasById retrieves DietaComidas by Id
+// GetDietaComidasById obtiene una comida con su plan nutricional relacionado
 func GetDietaComidasById(id int) (v *DietaComidas, err error) {
-    o := orm.NewOrm()
-    v = &DietaComidas{Id: id}
-    if err = o.Read(v); err == nil {
-        return v, nil
-    }
-    return nil, err
+	o := orm.NewOrm()
+	v = &DietaComidas{Id: id}
+	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "DietaId")
+		return v, nil
+	}
+	return nil, err
 }
 
 // GetAllDietaComidas retrieves all DietaComidas
 func GetAllDietaComidas(query map[string]string, fields []string, sortby []string, order []string,
     offset int64, limit int64) (ml []interface{}, err error) {
     o := orm.NewOrm()
-    qs := o.QueryTable(new(DietaComidas))
+    qs := o.QueryTable(new(DietaComidas)).RelatedSel()
     
     for k, v := range query {
         k = strings.Replace(k, ".", "__", -1)

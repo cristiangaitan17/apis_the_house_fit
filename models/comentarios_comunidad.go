@@ -11,8 +11,8 @@ import (
 )
 
 type ComentariosComunidad struct {
-	Id                int       `orm:"column(id);pk"`
-	CategoriaId       int       `orm:"column(categoria_id)"`
+	Id                int       `orm:"column(id);pk;auto"`
+	CCategoriaId      *Categorias `orm:"column(categoria_id);rel(fk)"`
 	UsuarioId         int       `orm:"column(usuario_id)"`
 	Contenido         string    `orm:"column(contenido)"`
 	Calificacion      int       `orm:"column(calificacion);null"`
@@ -20,8 +20,8 @@ type ComentariosComunidad struct {
 	Dislikes          int       `orm:"column(dislikes);null"`
 	Estado            string    `orm:"column(estado);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	fechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 }
 
 func (t *ComentariosComunidad) TableName() string {
@@ -40,12 +40,12 @@ func AddComentariosComunidad(m *ComentariosComunidad) (id int64, err error) {
 	return
 }
 
-// GetComentariosComunidadById retrieves ComentariosComunidad by Id. Returns error if
-// Id doesn't exist
+// GetComentariosComunidadById obtiene un comentario con su categoría relacionada
 func GetComentariosComunidadById(id int) (v *ComentariosComunidad, err error) {
 	o := orm.NewOrm()
 	v = &ComentariosComunidad{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "CategoriaId")
 		return v, nil
 	}
 	return nil, err
@@ -56,7 +56,7 @@ func GetComentariosComunidadById(id int) (v *ComentariosComunidad, err error) {
 func GetAllComentariosComunidad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ComentariosComunidad))
+	qs := o.QueryTable(new(ComentariosComunidad)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

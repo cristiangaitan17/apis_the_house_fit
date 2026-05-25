@@ -11,15 +11,15 @@ import (
 )
 
 type ArticulosSecciones struct {
-	Id                int       `orm:"column(id);pk"`
-	ArticuloId        int       `orm:"column(articulo_id)"`
+	Id                int       `orm:"column(id);pk:auto"`
+	ArticuloId        *Noticias  `orm:"column(articulo_id);rel(fk)"`
 	TituloSeccion     string    `orm:"column(titulo_seccion);null"`
 	Contenido         string    `orm:"column(contenido);null"`
 	ImagenUrl         string    `orm:"column(imagen_url);null"`
 	Orden             int       `orm:"column(orden);null"`
 	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone)"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone)"`
+	fecha_actualizacion time.Time  `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	fechac_creacion     time.Time  `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *ArticulosSecciones) TableName() string {
@@ -38,12 +38,12 @@ func AddArticulosSecciones(m *ArticulosSecciones) (id int64, err error) {
 	return
 }
 
-// GetArticulosSeccionesById retrieves ArticulosSecciones by Id. Returns error if
-// Id doesn't exist
+// GetArticulosSeccionesById obtiene una sección con su artículo relacionado
 func GetArticulosSeccionesById(id int) (v *ArticulosSecciones, err error) {
 	o := orm.NewOrm()
 	v = &ArticulosSecciones{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "ArticuloId")
 		return v, nil
 	}
 	return nil, err
@@ -54,7 +54,7 @@ func GetArticulosSeccionesById(id int) (v *ArticulosSecciones, err error) {
 func GetAllArticulosSecciones(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ArticulosSecciones))
+	qs := o.QueryTable(new(ArticulosSecciones)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
