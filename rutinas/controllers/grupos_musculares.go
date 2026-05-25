@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/beego/beego/v2/core/logs"
 	beego "github.com/beego/beego/v2/server/web"
 )
 
@@ -33,15 +34,17 @@ func (c *GruposMuscularesController) URLMapping() {
 // @router / [post]
 func (c *GruposMuscularesController) Post() {
 	var v models.GruposMusculares
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddGruposMusculares(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		if _, err := models.AddGruposMusculares(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo crear el grupo muscular"}
+		} else {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 201, "message": "Grupo muscular creado", "data": v}
+		}
 	}
 	c.ServeJSON()
 }
@@ -55,12 +58,18 @@ func (c *GruposMuscularesController) Post() {
 // @router /:id [get]
 func (c *GruposMuscularesController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "El ID proporcionado no es válido"}
+		c.ServeJSON()
+		return
+	}
 	v, err := models.GetGruposMuscularesById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 404, "message": "Grupo muscular no encontrado"}
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Petición correcta", "data": v}
 	}
 	c.ServeJSON()
 }
@@ -121,9 +130,10 @@ func (c *GruposMuscularesController) GetAll() {
 
 	l, err := models.GetAllGruposMusculares(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor GetAll: parámetros inválidos o consulta vacía"}
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Petición correcta", "data": l}
 	}
 	c.ServeJSON()
 }
@@ -138,16 +148,23 @@ func (c *GruposMuscularesController) GetAll() {
 // @router /:id [put]
 func (c *GruposMuscularesController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "El ID proporcionado no es válido"}
+		c.ServeJSON()
+		return
+	}
 	v := models.GruposMusculares{Id: id}
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateGruposMuscularesById(&v); err == nil {
-			c.Data["json"] = "OK"
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Put: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		if err := models.UpdateGruposMuscularesById(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Put: no se pudo actualizar"}
+		} else {
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Grupo muscular actualizado", "data": v}
+		}
 	}
 	c.ServeJSON()
 }
@@ -161,11 +178,22 @@ func (c *GruposMuscularesController) Put() {
 // @router /:id [delete]
 func (c *GruposMuscularesController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteGruposMusculares(id); err == nil {
-		c.Data["json"] = "OK"
+	if idStr == "" {
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "No se recibió ningún ID para eliminar"}
+		c.ServeJSON()
+		return
+	}
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "El ID proporcionado no es un formato numérico válido"}
+		c.ServeJSON()
+		return
+	}
+	if err := models.DeleteGruposMusculares(id); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor Delete: la solicitud contiene un parametro incorrecto o el registro no existe"}
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "El grupo muscular ha sido eliminado correctamente"}
 	}
 	c.ServeJSON()
 }
