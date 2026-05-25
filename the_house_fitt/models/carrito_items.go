@@ -22,7 +22,7 @@ type CarritoItems struct {
 }
 
 func (t *CarritoItems) TableName() string {
-	return "carrito_items"
+	return "tienda.carrito_items"
 }
 
 func init() {
@@ -43,6 +43,8 @@ func GetCarritoItemsById(id int) (v *CarritoItems, err error) {
 	o := orm.NewOrm()
 	v = &CarritoItems{IdCarrito: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "CarritoId")
+		o.LoadRelated(v, "ProductoId")
 		return v, nil
 	}
 	return nil, err
@@ -108,6 +110,8 @@ func GetAllCarritoItems(query map[string]string, fields []string, sortby []strin
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "CarritoId")
+				o.LoadRelated(&v, "ProductoId")
 				ml = append(ml, v)
 			}
 		} else {

@@ -23,7 +23,7 @@ type PedidoItems struct {
 }
 
 func (t *PedidoItems) TableName() string {
-	return "pedido_items"
+	return "tienda.pedido_items"
 }
 
 func init() {
@@ -44,6 +44,8 @@ func GetPedidoItemsById(id int) (v *PedidoItems, err error) {
 	o := orm.NewOrm()
 	v = &PedidoItems{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "PedidoId")
+		o.LoadRelated(v, "ProductoId")
 		return v, nil
 	}
 	return nil, err
@@ -109,6 +111,8 @@ func GetAllPedidoItems(query map[string]string, fields []string, sortby []string
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "PedidoId")
+				o.LoadRelated(&v, "ProductoId")
 				ml = append(ml, v)
 			}
 		} else {
