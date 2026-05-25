@@ -12,7 +12,7 @@ import (
 
 type Pedidos struct {
 	Id                int       `orm:"column(id_pedido);pk;auto"`
-	UsuarioId         int       `orm:"column(usuario_id)"`
+	UsuarioId         *Usuarios `orm:"rel(fk);column(usuario_id)"`
 	Subtotal          float64   `orm:"column(subtotal)"`
 	Envio             float64   `orm:"column(envio)"`
 	Impuesto          float64   `orm:"column(impuesto)"`
