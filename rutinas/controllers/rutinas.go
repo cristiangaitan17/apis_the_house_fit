@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/beego/beego/v2/core/logs"
 	beego "github.com/beego/beego/v2/server/web"
 )
 
@@ -33,15 +34,17 @@ func (c *RutinasController) URLMapping() {
 // @router / [post]
 func (c *RutinasController) Post() {
 	var v models.Rutinas
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddRutinas(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		if _, err := models.AddRutinas(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo crear la rutina"}
+		} else {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 201, "message": "Rutina creada", "data": v}
+		}
 	}
 	c.ServeJSON()
 }
@@ -58,9 +61,10 @@ func (c *RutinasController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetRutinasById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 404, "message": "Error en el servidor: rutina no encontrada"}
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Rutina obtenida", "data": v}
 	}
 	c.ServeJSON()
 }
@@ -121,9 +125,10 @@ func (c *RutinasController) GetAll() {
 
 	l, err := models.GetAllRutinas(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo obtener las rutinas"}
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Rutinas obtenidas", "data": l}
 	}
 	c.ServeJSON()
 }
@@ -140,14 +145,16 @@ func (c *RutinasController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v := models.Rutinas{Id: id}
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateRutinasById(&v); err == nil {
-			c.Data["json"] = "OK"
-		} else {
-			c.Data["json"] = err.Error()
-		}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servidor: la solicitud contiene un parametro incorrecto"}
 	} else {
-		c.Data["json"] = err.Error()
+		if err := models.UpdateRutinasById(&v); err != nil {
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo actualizar la rutina"}
+		} else {
+			c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Rutina actualizada", "data": v}
+		}
 	}
 	c.ServeJSON()
 }
@@ -162,10 +169,11 @@ func (c *RutinasController) Put() {
 func (c *RutinasController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteRutinas(id); err == nil {
-		c.Data["json"] = "OK"
+	if err := models.DeleteRutinas(id); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": false, "status": 500, "message": "Error en el servidor: no se pudo eliminar la rutina"}
 	} else {
-		c.Data["json"] = err.Error()
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Rutina eliminada"}
 	}
 	c.ServeJSON()
 }

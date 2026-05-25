@@ -55,6 +55,8 @@ CREATE TABLE tienda.carrito_items (
     activo              BOOLEAN             NOT NULL DEFAULT TRUE,
     "Fecha_modificacion" TIMESTAMP          DEFAULT CURRENT_TIMESTAMP,
     "Fecha_creacion"    TIMESTAMP           DEFAULT CURRENT_TIMESTAMP
+
+        
 );
 
 -- Creacion de Tabla pedidos
@@ -78,7 +80,3 @@ CREATE TABLE tienda.pedidos (
     "Fecha_creacion"    TIMESTAMP           DEFAULT CURRENT_TIMESTAMP
 );
 
--- Creacion de Tabla pedido_items
-CREATE TABLE tienda.pedido_items (
-    indexes             SERIAL              PRIMARY KEY,
-    pedido_id           INTEGER

@@ -11,19 +11,18 @@ import (
 )
 
 type CarritoItems struct {
-	IdCarrito         int       `orm:"column(id_carrito);pk;auto"`
-	CarritoId         int       `orm:"column(carrito_id)"`
-	ProductoId        int       `orm:"column(producto_id)"`
-	Cantidad          int       `orm:"column(cantidad)"`
-	PrecioUnitario    float64   `orm:"column(precio_unitario)"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
-	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
-
+	IdCarrito         int         `orm:"column(id_carrito);pk;auto"`
+	CarritoId         *Carrito    `orm:"rel(fk);column(carrito_id)"`
+	ProductoId        *Productos  `orm:"rel(fk);column(producto_id)"`
+	Cantidad          int         `orm:"column(cantidad)"`
+	PrecioUnitario    float64     `orm:"column(precio_unitario)"`
+	Activo            bool        `orm:"column(activo)"`
+	FechaModificacion time.Time   `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     time.Time   `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
 }
 
 func (t *CarritoItems) TableName() string {
-	return "tienda.carrito_items"
+	return "carrito_items"
 }
 
 func init() {

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"the_house_fit/models"
 
+	"github.com/beego/beego/v2/core/logs"
 	beego "github.com/beego/beego/v2/server/web"
 )
 
@@ -58,9 +59,10 @@ func (c *AdministradorController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetAdministradorById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 400, "Message": "Error en el servicio GetOne: La solicitud contiene un parametro incorrecto o no existe ningun registro", "data": nil}
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "Message": "Peticion exitosa", "data": v}
 	}
 	c.ServeJSON()
 }
@@ -121,9 +123,10 @@ func (c *AdministradorController) GetAll() {
 
 	l, err := models.GetAllAdministrador(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 400, "message": "Error en el servidor GetAll: la solicitud contiene un parametro incorrecto o no contiene registro solicitado"}
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = map[string]interface{}{"success": true, "status": 200, "message": "Peticion correcta", "data": l}
 	}
 	c.ServeJSON()
 }
@@ -167,5 +170,8 @@ func (c *AdministradorController) Delete() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
+	c.ServeJSON()
+}
+
 	c.ServeJSON()
 }
