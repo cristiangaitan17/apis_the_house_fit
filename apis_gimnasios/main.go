@@ -27,26 +27,6 @@ func main() {
 	dbName := os.Getenv("APIS_GIMNASIOS_PGDB")
 	dbSchema := os.Getenv("APIS_GIMNASIOS_PGSCHEMA")
 
-	// Valores por defecto
-	if dbUser == "" {
-		dbUser = "postgres"
-	}
-	if dbPass == "" {
-		dbPass = "root"
-	}
-	if dbHost == "" {
-		dbHost = "127.0.0.1"
-	}
-	if dbPort == "" {
-		dbPort = "5432"
-	}
-	if dbName == "" {
-		dbName = "gimnasios_db"
-	}
-	if dbSchema == "" {
-		dbSchema = "gimnasios"
-	}
-
 	// Configurar conexión
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable search_path=%s",
 		dbHost, dbPort, dbUser, dbPass, dbName, dbSchema)
