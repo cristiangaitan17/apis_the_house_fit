@@ -27,26 +27,6 @@ func main() {
 	dbName := os.Getenv("APIS_THE_BLOG_PGDB")
 	dbSchema := os.Getenv("APIS_THE_BLOG_PGSCHEMA")
 
-	// Valores por defecto
-	if dbUser == "" {
-		dbUser = "postgres"
-	}
-	if dbPass == "" {
-		dbPass = "root"
-	}
-	if dbHost == "" {
-		dbHost = "127.0.0.1"
-	}
-	if dbPort == "" {
-		dbPort = "5432"
-	}
-	if dbName == "" {
-		dbName = "blog_db"
-	}
-	if dbSchema == "" {
-		dbSchema = "blog"
-	}
-
 	// Configuración de la base de datos
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable search_path=%s",
 		dbHost, dbPort, dbUser, dbPass, dbName, dbSchema)
