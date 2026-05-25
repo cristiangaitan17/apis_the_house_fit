@@ -37,16 +37,18 @@ func AddResenasGimnasio(m *ResenasGimnasio) (id int64, err error) {
 	return
 }
 
-// GetResenasGimnasioById retrieves ResenasGimnasio by Id. Returns error if
-// Id doesn't exist
+/// GetResenasGimnasioById obtiene una reseña con su sede relacionada
 func GetResenasGimnasioById(id int) (v *ResenasGimnasio, err error) {
 	o := orm.NewOrm()
 	v = &ResenasGimnasio{Id: id}
 	if err = o.Read(v); err == nil {
+		// Cargar la sede relacionada (GimnasioId)
+		o.LoadRelated(v, "GimnasioId")
 		return v, nil
 	}
 	return nil, err
 }
+
 
 // GetAllResenasGimnasio retrieves all ResenasGimnasio matches certain condition. Returns empty list if
 // no records exist

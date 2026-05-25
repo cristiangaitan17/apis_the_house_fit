@@ -34,12 +34,13 @@ func AddGimnasioClases(m *GimnasioClases) (id int64, err error) {
 	return
 }
 
-// GetGimnasioClasesById retrieves GimnasioClases by Id. Returns error if
-// Id doesn't exist
+/// GetGimnasioClasesById obtiene una clase con su sede relacionada
 func GetGimnasioClasesById(id int) (v *GimnasioClases, err error) {
 	o := orm.NewOrm()
 	v = &GimnasioClases{Id: id}
 	if err = o.Read(v); err == nil {
+		// Cargar la sede relacionada (GimnasioId)
+		o.LoadRelated(v, "GimnasioId")
 		return v, nil
 	}
 	return nil, err

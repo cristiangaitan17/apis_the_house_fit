@@ -47,17 +47,17 @@ func AddSedesGimnasios(m *SedesGimnasios) (id int64, err error) {
 	return
 }
 
-// GetSedesGimnasiosById retrieves SedesGimnasios by Id. Returns error if
-// Id doesn't exist
 func GetSedesGimnasiosById(id int) (v *SedesGimnasios, err error) {
 	o := orm.NewOrm()
 	v = &SedesGimnasios{Id: id}
 	if err = o.Read(v); err == nil {
+		// Cargar relaciones si las hay
+		o.LoadRelated(v, "GimnasioClases")
+		o.LoadRelated(v, "ResenasGimnasio")
 		return v, nil
 	}
 	return nil, err
 }
-
 // GetAllSedesGimnasios retrieves all SedesGimnasios matches certain condition. Returns empty list if
 // no records exist
 func GetAllSedesGimnasios(query map[string]string, fields []string, sortby []string, order []string,
