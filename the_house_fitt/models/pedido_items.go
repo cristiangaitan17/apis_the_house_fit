@@ -12,8 +12,8 @@ import (
 
 type PedidoItems struct {
 	Id                int       `orm:"column(indexes);pk;auto"`
-	PedidoId          int       `orm:"column(pedido_id)"`
-	ProductoId        int       `orm:"column(producto_id)"`
+	PedidoId          *Pedidos   `orm:"rel(fk);column(pedido_id)"`
+	ProductoId        *Productos `orm:"rel(fk);column(producto_id)"`
 	Cantidad          int       `orm:"column(cantidad)"`
 	PrecioUnitario    float64   `orm:"column(precio_unitario)"`
 	Subtotal          float64   `orm:"column(subtotal)"`

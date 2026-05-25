@@ -33,7 +33,7 @@ func (c *CarritoItemsController) URLMapping() {
 // @router / [post]
 func (c *CarritoItemsController) Post() {
 	var v models.CarritoItems
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err != nil {
 		logs.Error(err)
 		c.Ctx.Output.SetStatus(201)
 		c.Data["json"] = map[string]interface{}{"success": false, "status": 400, "message": "Error en el servicio Post: el cuerpo de la solicitud es inválido o está mal formado"}

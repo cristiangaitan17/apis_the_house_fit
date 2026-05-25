@@ -45,6 +45,7 @@ func main() {
 			pgDb+
 			"?sslmode=disable&search_path="+pgSchema,
 	)
+	orm.Debug = true
 	o := orm.NewOrm()
 	o.Raw("SET search_path TO " + pgSchema).Exec()
 

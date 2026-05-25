@@ -12,8 +12,8 @@ import (
 
 type ResenasProducto struct {
 	Id                int       `orm:"column(id);pk;auto"`
-	ProductoId        int       `orm:"column(producto_id)"`
-	UsuarioId         int       `orm:"column(usuario_id)"`
+	ProductoId        *Productos `orm:"rel(fk);column(producto_id)"`
+	UsuarioId         *Usuarios  `orm:"rel(fk);column(usuario_id)"`
 	Calificacion      int       `orm:"column(calificacion)"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`

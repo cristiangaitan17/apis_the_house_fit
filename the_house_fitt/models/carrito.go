@@ -12,7 +12,7 @@ import (
 
 type Carrito struct {
 	Id                int       `orm:"column(id);pk;auto"`
-	UsuarioId         int       `orm:"column(usuario_id)"`
+	UsuarioId         *Usuarios `orm:"rel(fk);column(usuario_id)"`
 	Activo            bool      `orm:"column(activo)"`
 	FechaModificacion time.Time `orm:"column(Fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 	FechaCreacion     time.Time `orm:"column(Fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
