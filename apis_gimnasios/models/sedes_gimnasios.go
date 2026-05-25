@@ -22,13 +22,13 @@ type SedesGimnasios struct {
 	Telefono               string    `orm:"column(telefono);null"`
 	AgregarImg             string    `orm:"column(agregar_img);null"`
 	AgregarSede            string    `orm:"column(agregar_sede);null"`
-	AprovacionEntrenadores bool      `orm:"column(aprovacion_entrenadores);null"`
-	CalificacionProm       float64   `orm:"column(calificacion_prom);null"`
-	TotalResenas           int       `orm:"column(total_resenas);null"`
-	Activo                 bool      `orm:"column(activo);null"`
+	AprovacionEntrenadores bool      `orm:"column(aprovacion_entrenadores);default(false)"`
+	CalificacionProm       float64   `orm:"column(calificacion_prom);default(0)"`
+	TotalResenas           int       `orm:"column(total_resenas);default(0)"`
+	Activo                 bool      `orm:"column(activo);default(true)"`
 	AdministradorId        int       `orm:"column(administrador_id);null"`
-	FechaCreacion          time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
-	FechaModificacion      time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion          time.Time `orm:"column(fecha_creacion);auto_now_add;type(timestamp)"`
+	FechaModificacion      time.Time `orm:"column(fecha_modificacion);auto_now;type(timestamp)"`
 }
 
 func (t *SedesGimnasios) TableName() string {

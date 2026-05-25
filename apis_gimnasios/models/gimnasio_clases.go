@@ -12,13 +12,12 @@ import (
 
 type GimnasioClases struct {
 	Id                int             `orm:"column(id);pk;auto"`
-	 GimnasioId        int       `orm:"column(gimnasio_id)"`
+	GimnasioId        *SedesGimnasios `orm:"column(gimnasio_id);rel(fk)"`
 	NombreClase       string          `orm:"column(nombre_clase)"`
-	Activo            bool            `orm:"column(activo);null"`
-	FechaCreacion     time.Time       `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
-	FechaModificacion time.Time       `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	Activo            bool            `orm:"column(activo);default(true)"`
+	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add;type(timestamp)"`
+	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now;type(timestamp)"`
 }
-
 func (t *GimnasioClases) TableName() string {
 	return "gimnasio_clases"
 }

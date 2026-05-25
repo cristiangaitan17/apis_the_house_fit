@@ -12,13 +12,13 @@ import (
 
 type ResenasGimnasio struct {
 	Id                int             `orm:"column(id);pk;auto"`
-	GimnasioId int `orm:"column(gimnasio_id)"`
-	UsuarioId         int             `orm:"column(usuario_id);null"`
-	Calificacion      int             `orm:"column(calificacion);null"`
+	GimnasioId        *SedesGimnasios `orm:"column(gimnasio_id);rel(fk)"`
+	UsuarioId         int             `orm:"column(usuario_id)"`
+	Calificacion      int             `orm:"column(calificacion)"`
 	Comentario        string          `orm:"column(comentario);null"`
-	Activo            bool            `orm:"column(activo);null"`
-	FechaCreacion     time.Time       `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
-	FechaModificacion time.Time       `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	Activo            bool            `orm:"column(activo);default(true)"`
+	FechaCreacion     time.Time       `orm:"column(fecha_creacion);auto_now_add;type(timestamp)"`
+	FechaModificacion time.Time       `orm:"column(fecha_modificacion);auto_now;type(timestamp)"`
 }
 
 func (t *ResenasGimnasio) TableName() string {
