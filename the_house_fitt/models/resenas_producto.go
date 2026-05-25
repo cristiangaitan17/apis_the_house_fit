@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"strings"
 	"time"
+	
 
 	"github.com/beego/beego/v2/client/orm"
 )
@@ -21,7 +22,7 @@ type ResenasProducto struct {
 }
 
 func (t *ResenasProducto) TableName() string {
-	return "resenas_producto"
+	return "tienda.resenas_producto"
 }
 
 func init() {
@@ -42,6 +43,8 @@ func GetResenasProductoById(id int) (v *ResenasProducto, err error) {
 	o := orm.NewOrm()
 	v = &ResenasProducto{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "ProductoId")
+		o.LoadRelated(v, "UsuarioId")
 		return v, nil
 	}
 	return nil, err
@@ -107,6 +110,8 @@ func GetAllResenasProducto(query map[string]string, fields []string, sortby []st
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "ProductoId")
+				o.LoadRelated(&v, "UsuarioId")
 				ml = append(ml, v)
 			}
 		} else {

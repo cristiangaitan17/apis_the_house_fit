@@ -19,7 +19,7 @@ type Carrito struct {
 }
 
 func (t *Carrito) TableName() string {
-	return "carrito"
+	return "tienda.carrito"
 }
 
 func init() {
@@ -40,6 +40,7 @@ func GetCarritoById(id int) (v *Carrito, err error) {
 	o := orm.NewOrm()
 	v = &Carrito{Id: id}
 	if err = o.Read(v); err == nil {
+		o.LoadRelated(v, "UsuarioId")
 		return v, nil
 	}
 	return nil, err
@@ -105,6 +106,7 @@ func GetAllCarrito(query map[string]string, fields []string, sortby []string, or
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
+				o.LoadRelated(&v, "UsuarioId")
 				ml = append(ml, v)
 			}
 		} else {

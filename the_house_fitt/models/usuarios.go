@@ -29,3 +29,4 @@ func (t *Usuarios) TableName() string {
 func init() {
 	orm.RegisterModel(new(Usuarios))
 }
+// asasadasdsda
