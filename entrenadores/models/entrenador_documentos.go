@@ -12,7 +12,8 @@ import (
 
 type EntrenadorDocumentos struct {
 	Id                int           `orm:"column(id);pk;auto"`
-	EntrenadorId      *Entrenadores `orm:"column(entrenador_id);rel(fk)"` // 👈 Cambiado a Relación FK
+	IdEntrenador      int           `orm:"-" json:"entrenador_id,omitempty"`
+	EntrenadorId      *Entrenadores `orm:"column(entrenador_id);rel(fk)" json:"entrenador,omitempty"`
 	Identificacion    string        `orm:"column(Identificacion);size(80);null"`
 	NombreArchivo     string        `orm:"column(nombre_archivo);size(150);null"`
 	CreadoEn          time.Time     `orm:"column(creado_en);type(timestamp);auto_now_add"`
@@ -33,6 +34,9 @@ func init() {
 // last inserted Id on success.
 func AddEntrenadorDocumentos(m *EntrenadorDocumentos) (id int64, err error) {
 	o := orm.NewOrm()
+	if m.IdEntrenador != 0 {
+		m.EntrenadorId = &Entrenadores{Id: m.IdEntrenador}
+	}
 	id, err = o.Insert(m)
 	return
 }
@@ -43,6 +47,11 @@ func GetEntrenadorDocumentosById(id int) (v *EntrenadorDocumentos, err error) {
 	o := orm.NewOrm()
 	v = &EntrenadorDocumentos{Id: id}
 	if err = o.Read(v); err == nil {
+		if _, err2 := o.LoadRelated(v, "EntrenadorId"); err2 == nil {
+			if v.EntrenadorId != nil {
+				v.IdEntrenador = v.EntrenadorId.Id
+			}
+		}
 		return v, nil
 	}
 	return nil, err
@@ -53,7 +62,7 @@ func GetEntrenadorDocumentosById(id int) (v *EntrenadorDocumentos, err error) {
 func GetAllEntrenadorDocumentos(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(EntrenadorDocumentos))
+	qs := o.QueryTable(new(EntrenadorDocumentos)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -106,6 +115,11 @@ func GetAllEntrenadorDocumentos(query map[string]string, fields []string, sortby
 	var l []EntrenadorDocumentos
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
+		for i := range l {
+			if l[i].EntrenadorId != nil {
+				l[i].IdEntrenador = l[i].EntrenadorId.Id
+			}
+		}
 		if len(fields) == 0 {
 			for _, v := range l {
 				ml = append(ml, v)
@@ -133,6 +147,9 @@ func UpdateEntrenadorDocumentosById(m *EntrenadorDocumentos) (err error) {
 	v := EntrenadorDocumentos{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
+		if m.IdEntrenador != 0 {
+			m.EntrenadorId = &Entrenadores{Id: m.IdEntrenador}
+		}
 		var num int64
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
