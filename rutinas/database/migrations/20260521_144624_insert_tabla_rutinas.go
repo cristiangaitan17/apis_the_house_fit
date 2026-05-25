@@ -27,3 +27,4 @@ func (m *InsertTablaRutinas_20260521_144624) Up() {
 func (m *InsertTablaRutinas_20260521_144624) Down() {
 	m.SQL("DELETE FROM rutinas.rutinas WHERE nombre='Rutina de fuerza'")
 }
+//jbgvfg
