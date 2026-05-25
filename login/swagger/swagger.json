@@ -1,0 +1,700 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "beego Test API",
+        "description": "beego has a very cool tools to autogenerate documents for your API\n",
+        "version": "1.0.0",
+        "termsOfService": "http://beego.me/",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/Administrador/": {
+            "get": {
+                "tags": [
+                    "Administrador"
+                ],
+                "description": "get Administrador\n\u003cbr\u003e",
+                "operationId": "AdministradorController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Administrador"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Administrador"
+                ],
+                "description": "create Administrador\n\u003cbr\u003e",
+                "operationId": "AdministradorController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Administrador content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Administrador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Administrador"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/Administrador/{id}": {
+            "get": {
+                "tags": [
+                    "Administrador"
+                ],
+                "description": "get Administrador by id\n\u003cbr\u003e",
+                "operationId": "AdministradorController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Administrador"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Administrador"
+                ],
+                "description": "update the Administrador\n\u003cbr\u003e",
+                "operationId": "AdministradorController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Administrador content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Administrador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Administrador"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Administrador"
+                ],
+                "description": "delete the Administrador\n\u003cbr\u003e",
+                "operationId": "AdministradorController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/Login/": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "get Login\n\u003cbr\u003e",
+                "operationId": "LoginController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "create Login\n\u003cbr\u003e",
+                "operationId": "LoginController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Login content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Login"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/Login/{id}": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "get Login by id\n\u003cbr\u003e",
+                "operationId": "LoginController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "update the Login\n\u003cbr\u003e",
+                "operationId": "LoginController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Login content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Login"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "delete the Login\n\u003cbr\u003e",
+                "operationId": "LoginController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/usuarios/": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "description": "get Usuarios\n\u003cbr\u003e",
+                "operationId": "UsuariosController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usuarios"
+                ],
+                "description": "create Usuarios\n\u003cbr\u003e",
+                "operationId": "UsuariosController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Usuarios content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Usuarios"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/usuarios/{id}": {
+            "get": {
+                "tags": [
+                    "usuarios"
+                ],
+                "description": "get Usuarios by id\n\u003cbr\u003e",
+                "operationId": "UsuariosController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "usuarios"
+                ],
+                "description": "update the Usuarios\n\u003cbr\u003e",
+                "operationId": "UsuariosController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Usuarios content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usuarios"
+                ],
+                "description": "delete the Usuarios\n\u003cbr\u003e",
+                "operationId": "UsuariosController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Administrador": {
+            "title": "Administrador",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "AnioFundacion": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "CantidadClientes": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Ciudad": {
+                    "type": "string"
+                },
+                "Correo": {
+                    "type": "string"
+                },
+                "Departamento": {
+                    "type": "string"
+                },
+                "Direccion": {
+                    "type": "string"
+                },
+                "Estado": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaFirma": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Firma": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nit": {
+                    "type": "string"
+                },
+                "NombreGym": {
+                    "type": "string"
+                },
+                "PaginaWeb": {
+                    "type": "string"
+                },
+                "PropietarioNombre": {
+                    "type": "string"
+                },
+                "Telefono": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Login": {
+            "title": "Login",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Rol": {
+                    "type": "string"
+                },
+                "id_nombre": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "usuario": {
+                    "$ref": "#/definitions/models.Usuarios"
+                }
+            }
+        },
+        "models.Usuarios": {
+            "title": "Usuarios",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "Apellidos": {
+                    "type": "string"
+                },
+                "Ciudad": {
+                    "type": "string"
+                },
+                "Departamento": {
+                    "type": "string"
+                },
+                "Direccion": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaNacimiento": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nacionalidad": {
+                    "type": "string"
+                },
+                "Nombres": {
+                    "type": "string"
+                },
+                "Telefono": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "usuarios",
+            "description": "UsuariosController operations for Usuarios\n"
+        },
+        {
+            "name": "Administrador",
+            "description": "AdministradorController operations for Administrador\n"
+        },
+        {
+            "name": "Login",
+            "description": "LoginController operations for Login\n"
+        }
+    ]
+}
